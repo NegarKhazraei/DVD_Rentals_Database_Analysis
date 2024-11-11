@@ -15,7 +15,7 @@ The dataset simulates transactional data from a Blockbuster video rental store, 
 - **Full-Text Search**: Employed PostgreSQL’s full-text search capabilities to search and match keywords within text data.
 - **PostgreSQL Extensions**: Learned how to extend PostgreSQL’s features with extensions for enhanced functionality and analysis.
 
-## Data Analysis
+## Exploratory Data Analysis (EDA)
 
 ### Step 1: Exploring the Database Structure
 
