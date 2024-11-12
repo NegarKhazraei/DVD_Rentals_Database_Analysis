@@ -190,7 +190,7 @@ ORDER BY f.title;
 
 ### Step 10: Aggregating Rentals with DATE_TRUNC()
 
-In this step, I used the DATE_TRUNC() function to group rental records by different time intervals such as year, month, and day. The DATE_TRUNC() function truncates a timestamp or interval to a specified precision, making it easier to aggregate and analyze rental data over time. By truncating the rental_date field, I was able to group the rentals by year, month, and day to see trends in rental activity.
+In this step, I used the DATE_TRUNC() function to group rental records by different time intervals such as year, month, and day. By truncating the rental_date field, I was able to group the rentals by year, month, and day to see trends in rental activity.
 
 ```sql
 SELECT 
@@ -204,3 +204,49 @@ GROUP BY rental_day;
 <img width="891" alt="Screenshot 2024-11-12 at 18 09 52" src="https://github.com/user-attachments/assets/96807bc7-d682-4f6e-86ad-2afecd80b4a1">
 
 ---
+
+### Step 11: Identifying Late Rentals with CASE and Date/Time Functions
+
+In this part of the project, I used SQL date/time functions (EXTRACT(), DATE_TRUNC(), and AGE()) and a CASE statement to analyze rental patterns and identify late DVD returns. The goal was to pull customer rental data over a 90-day period and determine whether DVDs were returned late based on the rental duration allowed.
+
+```sql
+SELECT 
+  c.first_name || ' ' || c.last_name AS customer_name,
+  f.title,
+  r.rental_date,
+  -- Extract the day of week date part from the rental_date
+  EXTRACT(dow FROM r.rental_date) AS dayofweek,
+  AGE(r.return_date, r.rental_date) AS rental_days,
+  -- Use DATE_TRUNC to get days from the AGE function
+  CASE WHEN DATE_TRUNC('day', AGE(r.return_date, r.rental_date)) > 
+    f.rental_duration * INTERVAL '1' day 
+  THEN TRUE 
+  ELSE FALSE END AS past_due 
+FROM 
+  film AS f 
+  INNER JOIN inventory AS i 
+  	ON f.film_id = i.film_id 
+  INNER JOIN rental AS r 
+  	ON i.inventory_id = r.inventory_id 
+  INNER JOIN customer AS c 
+  	ON c.customer_id = r.customer_id 
+WHERE 
+  -- Use an INTERVAL for the upper bound of the rental_date 
+  r.rental_date BETWEEN CAST('2005-05-01' AS DATE) 
+  AND CAST('2005-05-01' AS DATE) + INTERVAL '90 day';
+```
+
+
+<img width="1103" alt="Screenshot 2024-11-12 at 20 48 01" src="https://github.com/user-attachments/assets/1149bd24-ddf1-46d6-853b-8b03e757779d">
+
+
+
+
+
+
+
+
+
+
+
+
