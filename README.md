@@ -105,7 +105,102 @@ FROM film
 
 ---
 
+### Step 6: Calculating Actual Rental Duration with Table Joins
+
+In this step, I calculated the actual rental duration in days for each film by subtracting the rental_date from the return_date in the rental table. To access data from both the film and rental tables in a single query, I joined three tables: film, inventory, and rental. This allowed me to calculate the number of days a DVD was actually rented based on the rental and return dates.
+
+```sql
+SELECT f.title, f.rental_duration,
+       -- Calculate the number of days rented
+       r.return_date - r.rental_date AS days_rented
+FROM film AS f
+     INNER JOIN inventory AS i ON f.film_id = i.film_id
+     INNER JOIN rental AS r ON i.inventory_id = r.inventory_id
+ORDER BY f.title;
+```
+
+<img width="905" alt="Screenshot 2024-11-12 at 15 37 01" src="https://github.com/user-attachments/assets/b62a88ba-e551-4d37-a967-42a096bb8837">
+
+---
+
+### Step 7: Calculating Rental Duration with the AGE() Function
+
+In this step, I used the AGE() function in PostgreSQL to calculate the rental duration for each film more precisely. 
+
+```sql
+SELECT f.title, f.rental_duration,
+	-- Calculate the number of days rented
+	AGE(r.return_date, r.rental_date) AS days_rented
+FROM film AS f
+	INNER JOIN inventory AS i ON f.film_id = i.film_id
+	INNER JOIN rental AS r ON i.inventory_id = r.inventory_id
+ORDER BY f.title;
+```
+
+<img width="959" alt="Screenshot 2024-11-12 at 15 49 34" src="https://github.com/user-attachments/assets/3e4d621d-f616-4b95-971d-bf542e2b7b43">
+
+---
+
+### Step 8: Using INTERVAL Arithmetic to Calculate Rental Duration
+
+In this step, I used PostgreSQL INTERVAL arithmetic to convert the rental_duration from a numeric value (days) into an interval type, which provides a clearer representation of the rental duration. Additionally, I filtered out records where the film is still out on rental (i.e., where return_date is NULL). This approach allows me to focus on rentals that have been returned and makes it easier to calculate and compare the actual rental duration against the allowed rental period.
+
+```sql
+SELECT
+    f.title,
+ 	-- Convert the rental_duration to an interval
+    INTERVAL '1' day * f.rental_duration AS rental_days,
+ 	-- Calculate the days rented as we did previously
+    r.return_date - r.rental_date AS days_rented
+FROM film AS f
+    INNER JOIN inventory AS i ON f.film_id = i.film_id
+    INNER JOIN rental AS r ON i.inventory_id = r.inventory_id
+-- Filter the query to exclude outstanding rentals
+WHERE r.return_date IS NOT NULL
+ORDER BY f.title;
+```
 
 
+<img width="918" alt="Screenshot 2024-11-12 at 16 09 00" src="https://github.com/user-attachments/assets/d9b69009-7757-4e9a-beeb-acb080ed68ab">
+
+---
+
+### Step 9: Calculating Expected Return Dates for Rentals
+
+In this step, I calculated the expected_return_date for each film rental by adding the rental_duration (the number of days a rental is allowed) to the rental_date. This provides a due date for each rental, which can be compared with the return_date to determine if a rental was returned late. Calculating the expected_return_date is useful for tracking on-time returns and managing overdue items.
+
+```sql
+SELECT
+    f.title,
+	r.rental_date,
+    f.rental_duration,
+    -- Add the rental duration to the rental date
+    INTERVAL '1' day * f.rental_duration + r.rental_date AS expected_return_date,
+    r.return_date
+FROM film AS f
+    INNER JOIN inventory AS i ON f.film_id = i.film_id
+    INNER JOIN rental AS r ON i.inventory_id = r.inventory_id
+ORDER BY f.title;
+```
 
 
+<img width="1066" alt="Screenshot 2024-11-12 at 16 22 50" src="https://github.com/user-attachments/assets/91cdd55c-4098-4740-aca1-0964b7ad9bb1">
+
+---
+
+### Step 10: Aggregating Rentals with DATE_TRUNC()
+
+In this step, I used the DATE_TRUNC() function to group rental records by different time intervals such as year, month, and day. The DATE_TRUNC() function truncates a timestamp or interval to a specified precision, making it easier to aggregate and analyze rental data over time. By truncating the rental_date field, I was able to group the rentals by year, month, and day to see trends in rental activity.
+
+```sql
+SELECT 
+  DATE_TRUNC('day', rental_date) AS rental_day,
+  COUNT(rental_id) as rentals 
+FROM rental
+GROUP BY rental_day;
+
+```
+
+<img width="891" alt="Screenshot 2024-11-12 at 18 09 52" src="https://github.com/user-attachments/assets/96807bc7-d682-4f6e-86ad-2afecd80b4a1">
+
+---
