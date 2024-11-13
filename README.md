@@ -239,8 +239,31 @@ WHERE
 
 <img width="1103" alt="Screenshot 2024-11-12 at 20 48 01" src="https://github.com/user-attachments/assets/1149bd24-ddf1-46d6-853b-8b03e757779d">
 
+---
 
+### Step 12: Concatenating Strings for Customer Email Formatting
 
+In this step, I used string concatenation to format customer names and email addresses into a "To" field format that would be useful in an email script or automation program. This format combines a customer’s full name with their email address in the following structure:
+```sql
+Full Name <email@example.com>
+```
+```sql
+-- Concatenate the first_name and last_name 
+SELECT first_name || ' ' || last_name  || ' <' || email || '>' AS full_email 
+FROM customer
+```
+OR 
+```sql
+-- Concatenate the first_name and last_name and email
+SELECT CONCAT(first_name, ' ', last_name, ' <', email, '>') AS full_email 
+FROM customer
+```
+
+<img width="571" alt="Screenshot 2024-11-13 at 11 03 38" src="https://github.com/user-attachments/assets/89ebfded-b0af-471a-b579-7a87e992b81e">
+
+---
+
+### Step 13: 
 
 
 
