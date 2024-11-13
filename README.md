@@ -8,7 +8,6 @@ The dataset simulates transactional data from a Blockbuster video rental store, 
 
 ## Key Skills and Techniques
 
-### Key Skills
 - **Database Exploration**: Efficiently navigated and queried the database schema using `INFORMATION_SCHEMA`.
 - **Data Cleaning & Transformation**: Standardised data formats, remove whitespace, and parsed email fields.
 - **Date Calculations**: Used `INTERVAL`, `AGE()`, and date comparisons to calculate rental durations and track overdue returns.
