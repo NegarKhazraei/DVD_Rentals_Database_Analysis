@@ -1,5 +1,6 @@
 # DVD Rentals Database Analysis
 
+
 ## Project Overview
 In this project, I explored and analysed a DVD rentals database to uncover insights into customer rental behaviour, rental durations, and film features. can you make (This project was completed as part of the "Functions for Manipulating Data in PostgreSQL" course on DataCamp.)
 
@@ -18,6 +19,8 @@ In this project, I explored and analysed a DVD rentals database to uncover insig
 ## Data Source
 The dataset simulates transactional data from a Blockbuster video rental store, including details about movies, rentals, customers, and rental dates. This data is part of the "Functions for Manipulating Data in PostgreSQL" module on DataCamp and was provided in a PostgreSQL database format for the purpose of practicing SQL functions and operations.
 
+---
+
 ## Key Skills and Techniques
 
 - **Database Exploration**: Efficiently navigated and queried the database schema using `INFORMATION_SCHEMA`.
@@ -30,6 +33,7 @@ The dataset simulates transactional data from a Blockbuster video rental store, 
 ---
 
 ## Data Cleaning and Processing
+
 
 ### Step 1: Concatenating Strings for Customer Email Formatting
 
@@ -108,6 +112,7 @@ FROM customer;
 ---
 
 ## Exploratory Data Analysis (EDA)
+
 
 ### Step 1: Exploring the Database Structure
 
