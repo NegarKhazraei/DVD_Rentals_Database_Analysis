@@ -11,7 +11,7 @@ In this project, I explored and analysed a DVD rentals database to uncover insig
 2. [Data Source](#data-source)
 3. [Key Skills and Techniques](#key-skills-and-techniques)
 4. [Data Cleaning and Processing](#data-cleaning-and-processing)
-5. [Exploratory Data Analysis](#exploratory-data-analysis)
+5. [Exploratory Data Analysis(EDA)](#exploratory-data-analysis-eda)
 
 ---
 
