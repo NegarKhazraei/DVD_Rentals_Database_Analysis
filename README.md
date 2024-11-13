@@ -1,4 +1,4 @@
-# DVD Rentals Database Analysis
+# <span style="color:blue">DVD Rentals Database Analysis</span>
 
 
 ## Project Overview
