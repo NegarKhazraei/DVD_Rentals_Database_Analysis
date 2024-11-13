@@ -1,7 +1,8 @@
-# <span style="color:blue">DVD Rentals Database Analysis</span>
+# DVD Rentals Database Analysis
 
 
-## Project Overview
+## <span style="color:blue">Project Overview</span>
+
 In this project, I explored and analysed a DVD rentals database to uncover insights into customer rental behaviour, rental durations, and film features. can you make (This project was completed as part of the "Functions for Manipulating Data in PostgreSQL" course on DataCamp.)
 
 ---
