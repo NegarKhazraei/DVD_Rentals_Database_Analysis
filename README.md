@@ -321,29 +321,7 @@ WHERE
 
 ---
 
-### Step 12: Concatenating Strings for Customer Email Formatting
-
-In this step, I used string concatenation to format customer names and email addresses into a "To" field format that would be useful in an email script or automation program. This format combines a customer’s full name with their email address in the following structure:
-```sql
-Full Name <email@example.com>
-```
-```sql
--- Concatenate the first_name and last_name 
-SELECT first_name || ' ' || last_name  || ' <' || email || '>' AS full_email 
-FROM customer
-```
-OR 
-```sql
--- Concatenate the first_name and last_name and email
-SELECT CONCAT(first_name, ' ', last_name, ' <', email, '>') AS full_email 
-FROM customer
-```
-
-<img width="571" alt="Screenshot 2024-11-13 at 11 03 38" src="https://github.com/user-attachments/assets/89ebfded-b0af-471a-b579-7a87e992b81e">
-
----
-
-### Step 13: Concatenating and Formatting Film Categories and Titles
+### Step 12: Concatenating and Formatting Film Categories and Titles
 
 In this step, I enhanced the readability and presentation of film data by applying case transformations. I created a new field, film_category, by concatenating the uppercase category name with the title-cased film title. Additionally, I formatted the description field in lowercase to ensure a standardized look across all records.
 
@@ -365,57 +343,5 @@ FROM
 <img width="1042" alt="Screenshot 2024-11-13 at 11 14 40" src="https://github.com/user-attachments/assets/1bb190c6-702e-424f-b8d2-7af29e0a58ff">
 
 ---
-
-### Step 14: Removing Whitespace in Film Titles
-
-In this step, I focused on data cleansing by removing whitespace in film titles. To create a more uniform and searchable format, I replaced any spaces within the title column of the film table with underscores (_). This technique is often used to prepare data for systems where whitespace can cause formatting issues or when a standard naming convention is required.
-
-```sql
-SELECT 
-  -- Replace whitespace in the film title with an underscore
-  REPLACE(title, ' ', '_') AS title
-FROM film;
-```
-
-<img width="318" alt="Screenshot 2024-11-13 at 11 17 33" src="https://github.com/user-attachments/assets/84724f63-027b-4bb3-87fb-c180aa74d518">
-
----
-
-### Step 15: Extracting Street Names from Address Data
-
-
-<img width="1105" alt="Screenshot 2024-11-13 at 12 42 13" src="https://github.com/user-attachments/assets/d95f8566-d332-4961-a004-8ec70b361803">
-
-In this step, I focused on extracting just the street name from the address column in the address table. The address data contains both the street number and the street name, but for analysis purposes, we are only interested in the street name
-
-```sql
-SELECT 
-  -- Select only the street name from the address table
-  SUBSTRING(address FROM POSITION(' ' IN address)+1 FOR LENGTH(address))
-FROM 
-  address;
-```
-
-<img width="310" alt="Screenshot 2024-11-13 at 12 45 13" src="https://github.com/user-attachments/assets/0e83b95f-5381-4f34-a1ca-b45c7e083a25">
-
----
-
-### Step 16: Parsing Email Addresses into Username and Domain
-
-
-<img width="996" alt="Screenshot 2024-11-13 at 13 21 50" src="https://github.com/user-attachments/assets/92e66632-d2f5-4b80-8080-0eef6debb785">
-
-In this step, I demonstrated how to break down a single email column into two new derived fields: username and domain. Parsing email addresses in this way is useful when you need to analyze or extract specific pieces of information from the email address, such as the domain name or username, for tasks like customer segmentation, identifying email providers, or gathering insights about customer behaviour based on domain usage.
-
-```sql
-SELECT
-  -- Extract the characters to the left of the '@'
-  LEFT(email, POSITION('@' IN email)-1) AS username,
-  -- Extract the characters to the right of the '@'
-  SUBSTRING(email FROM POSITION('@' IN email)+1 FOR LENGTH(email)) AS domain
-FROM customer;
-```
-
-<img width="796" alt="Screenshot 2024-11-13 at 13 23 03" src="https://github.com/user-attachments/assets/93d94f40-fd68-4f12-bb21-3904124979fb">
 
 
