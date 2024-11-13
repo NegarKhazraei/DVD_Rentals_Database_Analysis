@@ -322,6 +322,9 @@ FROM
 
 ### Step 16: Parsing Email Addresses into Username and Domain
 
+
+<img width="996" alt="Screenshot 2024-11-13 at 13 21 50" src="https://github.com/user-attachments/assets/92e66632-d2f5-4b80-8080-0eef6debb785">
+
 In this step, I demonstrated how to break down a single email column into two new derived fields: username and domain. Parsing email addresses in this way is useful when you need to analyze or extract specific pieces of information from the email address, such as the domain name or username, for tasks like customer segmentation, identifying email providers, or gathering insights about customer behaviour based on domain usage.
 
 ```sql
@@ -332,5 +335,7 @@ SELECT
   SUBSTRING(email FROM POSITION('@' IN email)+1 FOR LENGTH(email)) AS domain
 FROM customer;
 ```
+
+<img width="796" alt="Screenshot 2024-11-13 at 13 23 03" src="https://github.com/user-attachments/assets/93d94f40-fd68-4f12-bb21-3904124979fb">
 
 
