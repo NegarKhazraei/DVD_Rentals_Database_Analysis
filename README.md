@@ -13,7 +13,7 @@ In this project, I explored and analysed a DVD rentals database to uncover insig
 2. [Data Source](#data-source)
 3. [Key Skills and Techniques](#key-skills-and-techniques)
 4. [Data Cleaning and Processing](#data-cleaning-and-processing)
-5. [Exploratory Data Analysis(EDA)](#exploratory-data-analysis-eda)
+5. [Data Analysis](#data-analysis)
 
 ---
 
@@ -112,7 +112,7 @@ FROM customer;
 
 ---
 
-## Exploratory Data Analysis (EDA)
+## Data Analysis 
 
 
 ### Step 1: Exploring the Database Structure
